@@ -7,16 +7,18 @@ import {
   Image,
   ScrollView,
   Pressable,
+  Animated,
+  Dimensions,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useMemo, useRef} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootstackParams} from '../navigation/AppNavigator';
 import HeaderTop from '../common/HeaderTop';
 import {icons} from '../utils/icons';
-import {FONTSIZE, FONTFAMILY} from '../themes/Theme';
+import {FONTSIZE, FONTFAMILY, COLORS} from '../themes/Theme';
 import {SvgXml} from 'react-native-svg';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import BottomSheet from 'react-native-bottomsheet-reanimated';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 interface WomenTopsProps {
   navigation: NativeStackNavigationProp<RootstackParams, 'WomenTops'>;
@@ -34,6 +36,7 @@ const renderStars = (rating: number) => {
 };
 
 const WomenTops = ({navigation}: WomenTopsProps) => {
+  const refRBSheet = useRef<RBSheet>(null);
   const data = [
     {
       id: 1,
@@ -84,6 +87,17 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
       listviewname: 'T-shirt SPANISH',
     },
   ];
+  const sort = [
+    'Popular',
+    'Newest',
+    'Customer review',
+    'Price: low to high',
+    'Price: low to Medium',
+    'Price: highest to low',
+    'Price: highest to Medium',
+    'Price: Medium to low',
+    'Price: Medium to High',
+  ];
   const categories = [
     'T-shirts',
     'Crop-tops',
@@ -92,6 +106,10 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
     'Bottoms',
   ];
   const [isGridView, setIsGridView] = useState<boolean>(false);
+  const [displayText, setDisplayText] = useState<string>("Women's Tops");
+  const handledisplayText = () => {
+    setDisplayText('');
+  };
 
   const handleGrid = () => {
     setIsGridView(!isGridView);
@@ -108,7 +126,12 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
   const handleSwitch = (category: string) => {
     setSelectedCategory(category);
   };
+  const handleSortSwitch = (sort: string) => {
+    setSelectedSort(sort);
+  };
   const [selectedCategory, setSelectedCategory] = useState<string>('T-shirts');
+  const [selectedSort, setSelectedSort] =
+    useState<string>('Price: low to high');
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.mainView}>
@@ -120,15 +143,16 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
             onPress2={() => navigation.goBack()}
           />
           <View style={{marginHorizontal: 20, marginTop: 20}}>
-            <Text style={isGridView ? styles.womenTextList : styles.womenText}>
-              Women's Tops
+            <Text
+              style={isGridView ? [styles.womenTextList] : styles.womenText}>
+              {displayText}
             </Text>
           </View>
           <FlatList
-            horizontal
+            horizontal={true}
             data={categories}
             keyExtractor={item => item}
-            // showsHorizontalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.flatListView}
             renderItem={({item}) => (
               <TouchableOpacity
@@ -149,25 +173,20 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
           />
           <View style={styles.upperView}>
             <View style={styles.filterView}>
-              <TouchableOpacity
-                onPress={() => (
-                  <BottomSheet
-                    bottomSheetColor="#ffffff"
-                    isRoundBorderWithTipHeader={true}
-                    ref="BottomSheet"
-                    isBackDrop={true}
-                    isBackDropDismissByPress={true}
-                  />
-                )}>
+              <TouchableOpacity style={{bottom: 2}}>
                 <SvgXml xml={icons().filter} />
               </TouchableOpacity>
-              <Text style={styles.filterText}>Filters</Text>
+              <TouchableOpacity>
+                <Text style={styles.filterText}>Filters</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.priceView}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => refRBSheet.current?.open()}>
                 <SvgXml xml={icons().sort} />
               </TouchableOpacity>
-              <Text style={styles.PriceText}>Price : High to Low </Text>
+              <TouchableOpacity onPress={() => refRBSheet.current.open()}>
+                <Text style={styles.PriceText}>{selectedSort}</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.gridView}>
               <TouchableOpacity onPress={handleGrid}>
@@ -178,6 +197,48 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
               </TouchableOpacity>
             </View>
           </View>
+          <RBSheet
+            ref={refRBSheet}
+            useNativeDriver={false}
+            closeOnPressMask={true}
+            closeOnPressBack={true}
+            height={Dimensions.get('window').height / 2.5}
+            customStyles={{
+              container: {
+                borderTopRightRadius: 20,
+                borderTopLeftRadius: 20,
+              },
+              draggableIcon: {
+                backgroundColor: '#000000',
+              },
+            }}>
+            <View>
+              <View style={styles.draggableButton}></View>
+              <Text style={styles.sortTitleSheet}>Sort by</Text>
+              <FlatList
+                data={sort}
+                keyExtractor={item => item}
+                // showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.flatListView1}
+                renderItem={({item}) => (
+                  <Pressable
+                    style={[
+                      styles.sortBtn,
+                      selectedSort === item && styles.selectedSortBtn,
+                    ]}
+                    onPress={() => handleSortSwitch(item)}>
+                    <Text
+                      style={[
+                        styles.sortText,
+                        selectedSort === item && styles.selectedSortTextMain,
+                      ]}>
+                      {item}
+                    </Text>
+                  </Pressable>
+                )}
+              />
+            </View>
+          </RBSheet>
         </View>
         <View style={isGridView ? styles.listTop : styles.flatTop}>
           <FlatList
@@ -251,7 +312,7 @@ export default WomenTops;
 const styles = StyleSheet.create({
   flatListView: {
     paddingHorizontal: 10,
-    width: '100%',
+    // alignItems : 'flex-start'
   },
   categorybtn: {
     backgroundColor: '#222222',
@@ -265,7 +326,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Poppins_Bold,
   },
   upperView: {
-    backgroundColor: '#f9f9f9',
+    // backgroundColor: '#f9f9f9',
     marginTop: 10,
     justifyContent: 'space-between',
     marginHorizontal: 20,
@@ -276,12 +337,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
-    justifyContent: 'space-between',
   },
   filterView: {
     marginTop: 10,
     flexDirection: 'row',
     width: '25%',
+    // marginHorizontal : 10,
     justifyContent: 'space-around',
     marginVertical: 5,
   },
@@ -291,7 +352,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   filterText: {
-    fontFamily: FONTFAMILY.Poppins_Thin,
+    fontFamily: FONTFAMILY.Poppins_Medium,
     fontSize: FONTSIZE.size_16,
   },
   selectedCategory: {},
@@ -383,4 +444,74 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   womenTextList: {},
+  bottomSheetContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  sortTitle: {
+    fontSize: 18,
+    fontFamily: FONTFAMILY.Poppins_Medium,
+    marginBottom: 10,
+  },
+  sortTitleSheet: {
+    textAlign: 'center',
+    marginTop: 10,
+    fontSize: FONTSIZE.size_20,
+    fontFamily: FONTFAMILY.Poppins_Medium,
+  },
+  draggableButton: {
+    height: 5,
+    borderRadius: 20,
+    backgroundColor: '#9B9B9B',
+    top: 10,
+    marginBottom: 5,
+    width: 50,
+    alignSelf: 'center',
+  },
+  sortOption: {
+    paddingVertical: 15,
+  },
+  selectedSortOption: {
+    backgroundColor: 'red',
+    paddingVertical: 15,
+    borderRadius: 5,
+  },
+  sortOptionText: {
+    fontSize: 16,
+    fontFamily: FONTFAMILY.Poppins_Regular,
+  },
+  selectedSortText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  sortBtn: {
+    // backgroundColor : '#000',
+    // color : '#000',
+  },
+  flatListView1: {
+    marginTop: 20,
+    width: '100%',
+    // textAlign : 'left'
+  },
+  selectedSortBtn: {
+    backgroundColor: '#DB3022',
+  },
+  sortText: {
+    fontSize: FONTSIZE.size_18,
+    color: COLORS.black,
+    fontFamily: FONTFAMILY.Poppins_Regular,
+    // textAlign : '',
+    marginLeft: 10,
+    marginBottom: 10,
+    // alignSelf : 'center',
+    // verticalAlign : 'middle',
+    paddingTop: 5,
+  },
+  selectedSortTextMain: {
+    color: COLORS.white,
+  },
 });
+
+/**
+ 
+ */

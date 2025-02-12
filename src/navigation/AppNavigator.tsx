@@ -11,7 +11,6 @@ import Bottomtabs from './BottomTabs';
 import WomenTops from '../screens/WomenTops';
 import Women from '../screens/Women';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 export type RootstackParams = {
   SignUp: undefined;
   Login: undefined;

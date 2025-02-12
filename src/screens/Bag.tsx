@@ -12,3 +12,4 @@ const Bag = () => {
 export default Bag
 
 const styles = StyleSheet.create({})
+
