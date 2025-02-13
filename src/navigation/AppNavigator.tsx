@@ -11,6 +11,9 @@ import Bottomtabs from './BottomTabs';
 import WomenTops from '../screens/WomenTops';
 import Women from '../screens/Women';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import FilterScreen from '../screens/FilterScreen';
+import HeaderTop from '../common/HeaderTop';
+import BrandScreen from '../screens/BrandScreen';
 export type RootstackParams = {
   SignUp: undefined;
   Login: undefined;
@@ -20,6 +23,8 @@ export type RootstackParams = {
   BottomTabs: undefined;
   WomenTops: undefined;
   Women: undefined;
+  Filter: undefined;
+  BrandScreen: undefined;
 };
 const Rootstack = createNativeStackNavigator<RootstackParams>();
 
@@ -31,6 +36,9 @@ export const Harsh = () => {
       <Rootstack.Screen name="Shop" component={Shop} />
       <Rootstack.Screen name="Women" component={Women} />
       <Rootstack.Screen name="WomenTops" component={WomenTops} />
+      <Rootstack.Screen name="Filter" component={FilterScreen} />
+      <Rootstack.Screen name="BrandScreen" component={BrandScreen} />
+      {/* <Rootstack.Screen name='HeaderTop' component={HeaderTop}/> */}
     </Rootstack.Navigator>
   );
 };

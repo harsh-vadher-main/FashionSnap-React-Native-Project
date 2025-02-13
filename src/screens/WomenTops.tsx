@@ -143,10 +143,12 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
             onPress2={() => navigation.goBack()}
           />
           <View style={{marginHorizontal: 20, marginTop: 20}}>
-            <Text
-              style={isGridView ? [styles.womenTextList] : styles.womenText}>
-              {displayText}
-            </Text>
+            {!isGridView && (
+              <Text
+                style={isGridView ? [styles.womenTextList] : styles.womenText}>
+                {displayText}
+              </Text>
+            )}
           </View>
           <FlatList
             horizontal={true}
@@ -173,10 +175,12 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
           />
           <View style={styles.upperView}>
             <View style={styles.filterView}>
-              <TouchableOpacity style={{bottom: 2}}>
+              <TouchableOpacity
+                style={{bottom: 2}}
+                onPress={() => navigation.navigate('Filter')}>
                 <SvgXml xml={icons().filter} />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
                 <Text style={styles.filterText}>Filters</Text>
               </TouchableOpacity>
             </View>
@@ -202,6 +206,7 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
             useNativeDriver={false}
             closeOnPressMask={true}
             closeOnPressBack={true}
+            draggable={true}
             height={Dimensions.get('window').height / 2.5}
             customStyles={{
               container: {
@@ -209,11 +214,11 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
                 borderTopLeftRadius: 20,
               },
               draggableIcon: {
-                backgroundColor: '#000000',
+                backgroundColor: '#9B9B9B',
+                marginTop: 5,
               },
             }}>
             <View>
-              <View style={styles.draggableButton}></View>
               <Text style={styles.sortTitleSheet}>Sort by</Text>
               <FlatList
                 data={sort}
@@ -455,18 +460,9 @@ const styles = StyleSheet.create({
   },
   sortTitleSheet: {
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 5,
     fontSize: FONTSIZE.size_20,
     fontFamily: FONTFAMILY.Poppins_Medium,
-  },
-  draggableButton: {
-    height: 5,
-    borderRadius: 20,
-    backgroundColor: '#9B9B9B',
-    top: 10,
-    marginBottom: 5,
-    width: 50,
-    alignSelf: 'center',
   },
   sortOption: {
     paddingVertical: 15,
@@ -491,7 +487,7 @@ const styles = StyleSheet.create({
   flatListView1: {
     marginTop: 20,
     width: '100%',
-    // textAlign : 'left'
+    paddingBottom: 30,
   },
   selectedSortBtn: {
     backgroundColor: '#DB3022',

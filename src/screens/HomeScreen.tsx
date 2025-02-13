@@ -13,8 +13,9 @@ import {
 import React, {useState} from 'react';
 import {SvgXml} from 'react-native-svg';
 import {icons} from '../utils/icons';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootstackParams } from '../navigation/AppNavigator';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootstackParams} from '../navigation/AppNavigator';
+import {FONTFAMILY} from '../themes/Theme';
 
 interface HomeScreenProps {
   navigation: NativeStackNavigationProp<RootstackParams, 'Home'>;
@@ -174,7 +175,7 @@ const HomeScreen = () => {
             style={styles.flatList}
             showsHorizontalScrollIndicator={false}
             data={data}
-            keyExtractor={(item) => String(item.id)}
+            keyExtractor={item => String(item.id)}
             renderItem={({item}) => (
               <View key={item.id} style={styles.mainlistview}>
                 <View
@@ -275,8 +276,13 @@ const HomeScreen = () => {
                 </View>
                 <Image source={item.image} style={styles.flatlistImage} />
                 <View style={{flexDirection: 'row'}}>
-                  <View></View>
-                  <Text style={{color: '#9b9b9b', fontWeight: '400'}}>
+                  {/* <View>{renderItem()}</View> */}
+                  <Text
+                    style={{
+                      color: '#9b9b9b',
+                      fontWeight: '400',
+                      fontFamily: FONTFAMILY.Poppins_Regular,
+                    }}>
                     (10){' '}
                   </Text>
                 </View>
@@ -325,18 +331,25 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: 20,
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: FONTFAMILY.Poppins_Bold,
   },
   saletext: {
     fontSize: 34,
     marginHorizontal: 20,
     marginTop: 20,
+    alignContent: 'flex-start',
+    // backgroundColor : 'red',
+    alignSelf: 'flex-start',
+    fontFamily: FONTFAMILY.Poppins_Bold,
   },
   subText: {
-    fontSize: 13,
+    fontSize: 12,
+    top: -10,
+    // backgroundColor: 'green',
     color: '#9B9B9B',
     marginHorizontal: 20,
-    fontWeight: '400',
+    // fontWeight: '400',
+    fontFamily: FONTFAMILY.Poppins_Regular,
   },
   flatList: {
     marginHorizontal: 10,
@@ -356,12 +369,14 @@ const styles = StyleSheet.create({
   },
   discountPrice: {
     color: '#DB3022',
-    fontWeight: '400',
+    // fontWeight: '400',
+    fontFamily: FONTFAMILY.Poppins_Regular,
   },
   originalPrice: {
     color: '#9B9B9B',
     textDecorationLine: 'line-through',
-    fontWeight: '400',
+    // fontWeight: '400',
+    fontFamily: FONTFAMILY.Poppins_Regular,
   },
   likebtn: {
     position: 'absolute',
@@ -373,9 +388,11 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#9B9B9B',
     fontWeight: '300',
+    fontFamily: FONTFAMILY.Poppins_Regular,
   },
   itemName: {
     fontSize: 16,
     fontWeight: '500',
+    fontFamily: FONTFAMILY.Poppins_Medium,
   },
 });

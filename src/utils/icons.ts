@@ -222,4 +222,8 @@ export const icons = () => ({
 <path fill-rule="evenodd" clip-rule="evenodd" d="M4 14H8V10H4V14ZM4 19H8V15H4V19ZM4 9H8V5H4V9ZM9 14H21V10H9V14ZM9 19H21V15H9V19ZM9 5V9H21V5H9Z" fill="#222222"/>
 </svg>
 `,
+  next: `<svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.589966 10.59L5.16997 6L0.589966 1.41L1.99997 0L7.99997 6L1.99997 12L0.589966 10.59Z" fill="#222222"/>
+</svg>
+`,
 });
