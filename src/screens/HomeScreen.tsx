@@ -1,5 +1,4 @@
 import {
-  Alert,
   FlatList,
   Image,
   Pressable,
@@ -8,6 +7,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
@@ -16,10 +16,6 @@ import {icons} from '../utils/icons';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootstackParams} from '../navigation/AppNavigator';
 import {FONTFAMILY} from '../themes/Theme';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import Profile from './Profile';
-import {DrawerActions} from '@react-navigation/native';
-import DrawerTab from './DrawerTab';
 
 interface HomeScreenProps {
   navigation: NativeStackNavigationProp<RootstackParams, 'HomeScreen'>;
@@ -198,7 +194,10 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
                     {item.discount}
                   </Text>
                 </View>
-                <Image source={item.image} style={styles.flatlistImage} />
+                <TouchableWithoutFeedback
+                  onPress={() => navigation.navigate('Cloths')}>
+                  <Image source={item.image} style={styles.flatlistImage} />
+                </TouchableWithoutFeedback>
                 <View style={{flexDirection: 'row'}}>
                   <View style={{flexDirection: 'row'}}>
                     {renderItem(item.rating)}

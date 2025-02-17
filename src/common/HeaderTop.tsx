@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   searchBtn: {
-    marginHorizontal: 10,
+    marginHorizontal: 15,
     marginVertical: 10,
   },
 });

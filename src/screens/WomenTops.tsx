@@ -140,7 +140,7 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
             text={isGridView ? "Women's Tops" : ''}
             btn={icons().search}
             onPress1={() => navigation.goBack()}
-            onPress2={() => navigation.goBack()}
+            // onPress2={() => navigation.goBack()}
           />
           <View style={{marginHorizontal: 20, marginTop: 20}}>
             {!isGridView && (
@@ -185,7 +185,7 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
               </TouchableOpacity>
             </View>
             <View style={styles.priceView}>
-              <TouchableOpacity onPress={() => refRBSheet.current?.open()}>
+              <TouchableOpacity onPress={() => refRBSheet.current.open()}>
                 <SvgXml xml={icons().sort} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => refRBSheet.current.open()}>
@@ -223,7 +223,6 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
               <FlatList
                 data={sort}
                 keyExtractor={item => item}
-                // showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.flatListView1}
                 renderItem={({item}) => (
                   <Pressable

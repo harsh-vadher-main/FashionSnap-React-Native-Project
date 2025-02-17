@@ -11,7 +11,7 @@ import WomenTops from '../screens/WomenTops';
 import Women from '../screens/Women';
 import FilterScreen from '../screens/FilterScreen';
 import BrandScreen from '../screens/BrandScreen';
-import DrawerTab from '../screens/DrawerTab';
+import Cloths from '../screens/Cloths';
 
 export type RootstackParams = {
   SignUp: undefined;
@@ -25,7 +25,11 @@ export type RootstackParams = {
   Filter: undefined;
   BrandScreen: undefined;
   Drawer: undefined;
+  Cloths : undefined;
 };
+
+
+
 
 const Rootstack = createNativeStackNavigator<RootstackParams>();
 export const ShopScreen = () => {
@@ -54,6 +58,8 @@ const AppNavigator = () => {
         <Rootstack.Screen name="BottomTabs" component={Bottomtabs} />
         {/* <Rootstack.Screen name="Drawer" component={DrawerTab} /> */}
         <Rootstack.Screen name="Shop" component={Shop} />
+        <Rootstack.Screen name='Cloths' component={Cloths}/>
+        
       </Rootstack.Navigator>
     </NavigationContainer>
   );

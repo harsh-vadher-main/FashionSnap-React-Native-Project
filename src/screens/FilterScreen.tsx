@@ -16,6 +16,7 @@ import {icons} from '../utils/icons';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../themes/Theme';
 import {RangeSlider} from '@react-native-assets/slider';
 import {Circle, SvgXml} from 'react-native-svg';
+import RedButton from '../common/RedButton';
 interface FilterProps {
   navigation: NativeStackNavigationProp<RootstackParams, 'Filter'>;
 }
@@ -83,14 +84,15 @@ const FilterScreen = ({navigation}: FilterProps) => {
               keyExtractor={item => item}
               contentContainerStyle={styles.list}
               renderItem={({item}) => (
-                <TouchableOpacity
+                <View
                   style={[
-                    styles.colorCircle,
-                    {backgroundColor: item},
-                    selectedColor.includes(item) && styles.selectedColor,
-                  ]}
-                  onPress={() => toggleColors(item)}
-                />
+                    styles.outerBorder,
+                    selectedColor.includes(item) && styles.selectedOuterBorder,
+                  ]}>
+                  <TouchableOpacity
+                    style={[styles.colorCircle, {backgroundColor: item}]}
+                    onPress={() => toggleColors(item)}></TouchableOpacity>
+                </View>
               )}
             />
           </View>
@@ -147,13 +149,13 @@ const FilterScreen = ({navigation}: FilterProps) => {
                     <TouchableOpacity
                       style={[
                         styles.categoryBtn,
-                        selectedCategory === item && styles.selectedCategoryBtn,
+                        selectedCategory.includes(item) && styles.selectedCategoryBtn,
                       ]}
                       onPress={() => setSelectedCategory(item)}>
                       <Text
                         style={[
                           styles.categoryText,
-                          selectedCategory === item &&
+                          selectedCategory.includes(item) &&
                             styles.selectedCategoryText,
                         ]}>
                         {item}
@@ -185,6 +187,14 @@ const FilterScreen = ({navigation}: FilterProps) => {
           </View>
         </View>
       </ScrollView>
+      <View style={styles.bottomView}>
+        <TouchableOpacity style={styles.discardBtn}>
+          <Text style={styles.discardText}>Discard </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.applyButton}>
+          <RedButton name="Apply" textStyle={styles.applyText} />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -266,7 +276,16 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'transparent',
   },
-  selectedColor: {
+
+  outerBorder: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 45,
+    height: 45,
+    borderRadius: 25,
+  },
+  selectedOuterBorder: {
+    borderWidth: 1,
     borderColor: '#DB3022',
   },
   sizeView: {
@@ -343,5 +362,57 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 5,
     top: 5,
+  },
+  applyButton: {
+    // borde
+    backgroundColor: '#DB3022',
+    fontFamily: FONTFAMILY.Poppins_Regular,
+    // borderWidth: 1,
+    height: 40,
+    alignSelf: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.5,
+    elevation: 10,
+    shadowColor: '#DB3022',
+    width: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+  },
+  bottomView: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    height: 80,
+    width: '100%',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.3,
+    elevation: 2,
+    backgroundColor: '#fff',
+  },
+  discardBtn: {
+    borderColor: '#000',
+    borderWidth: 1,
+    height: 40,
+    alignSelf: 'center',
+    width: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+  },
+  discardText: {
+    fontSize: 16,
+    fontFamily: FONTFAMILY.Poppins_Regular,
+  },
+  applyText: {
+    fontSize: 16,
+    fontFamily: FONTFAMILY.Poppins_Regular,
+    color: COLORS.white,
   },
 });

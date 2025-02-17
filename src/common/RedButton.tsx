@@ -4,12 +4,13 @@ import React from 'react';
 type Props = {
   name: string;
   style?: any;
-  onPress?: ()=>void;
-}
-const RedButton = ({name, onPress, style}:Props) => {
+  textStyle?: any;
+  onPress?: () => void;
+};
+const RedButton = ({name, onPress, style,textStyle}: Props) => {
   return (
-    <Pressable style={styles.redButton} onPress={onPress}>
-      <Text style={styles.text}>{name}</Text>
+    <Pressable style={style} onPress={onPress}>
+      <Text style={textStyle}>{name}</Text>
     </Pressable>
   );
 };
