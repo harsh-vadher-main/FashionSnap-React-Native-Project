@@ -5,30 +5,30 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignUp from '../screens/SignUp';
 import Login from '../screens/Login';
 import ForgetPassword from '../screens/ForgetPassword';
-import HomeScreen from '../screens/HomeScreen';
 import Shop from '../screens/Shop';
 import Bottomtabs from './BottomTabs';
 import WomenTops from '../screens/WomenTops';
 import Women from '../screens/Women';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FilterScreen from '../screens/FilterScreen';
-import HeaderTop from '../common/HeaderTop';
 import BrandScreen from '../screens/BrandScreen';
+import DrawerTab from '../screens/DrawerTab';
+
 export type RootstackParams = {
   SignUp: undefined;
   Login: undefined;
   Forgetpassword: undefined;
-  Home: undefined;
+  HomeScreen: undefined;
   Shop: undefined;
   BottomTabs: undefined;
   WomenTops: undefined;
   Women: undefined;
   Filter: undefined;
   BrandScreen: undefined;
+  Drawer: undefined;
 };
-const Rootstack = createNativeStackNavigator<RootstackParams>();
 
-export const Harsh = () => {
+const Rootstack = createNativeStackNavigator<RootstackParams>();
+export const ShopScreen = () => {
   return (
     <Rootstack.Navigator
       initialRouteName="Shop"
@@ -38,7 +38,6 @@ export const Harsh = () => {
       <Rootstack.Screen name="WomenTops" component={WomenTops} />
       <Rootstack.Screen name="Filter" component={FilterScreen} />
       <Rootstack.Screen name="BrandScreen" component={BrandScreen} />
-      {/* <Rootstack.Screen name='HeaderTop' component={HeaderTop}/> */}
     </Rootstack.Navigator>
   );
 };
@@ -47,12 +46,13 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Rootstack.Navigator
-        screenOptions={{headerShown: false}}
-        initialRouteName="SignUp">
+        initialRouteName="SignUp"
+        screenOptions={{headerShown: false}}>
         <Rootstack.Screen name="SignUp" component={SignUp} />
         <Rootstack.Screen name="Login" component={Login} />
         <Rootstack.Screen name="Forgetpassword" component={ForgetPassword} />
         <Rootstack.Screen name="BottomTabs" component={Bottomtabs} />
+        {/* <Rootstack.Screen name="Drawer" component={DrawerTab} /> */}
         <Rootstack.Screen name="Shop" component={Shop} />
       </Rootstack.Navigator>
     </NavigationContainer>

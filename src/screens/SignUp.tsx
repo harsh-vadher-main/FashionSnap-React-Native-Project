@@ -16,7 +16,7 @@ import {createStaticNavigation, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootstackParams} from '../navigation/AppNavigator';
 import BottomTabs from '../navigation/BottomTabs';
-import { FONTFAMILY } from '../themes/Theme';
+import {FONTFAMILY} from '../themes/Theme';
 
 export default function Signup() {
   const navigation =
@@ -25,9 +25,6 @@ export default function Signup() {
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
         <View style={styles.firstView}>
-          <Pressable onPress={() => navigation.navigate('Login')}>
-            <SvgXml xml={icons().back} />
-          </Pressable>
           <View style={styles.signupView}>
             <Text style={styles.signUptext}>Sign up</Text>
           </View>
@@ -85,7 +82,7 @@ const styles = StyleSheet.create({
   },
   signUptext: {
     fontSize: 34,
-    fontFamily : FONTFAMILY.Poppins_Bold
+    fontFamily: FONTFAMILY.Poppins_Bold,
   },
   secondView: {
     // backgroundColor: 'red',
@@ -106,11 +103,11 @@ const styles = StyleSheet.create({
     // borderColor: '#ffffff',
   },
   nameText: {
-    fontSize: 14,
+    fontSize: 11,
     left: 20,
     top: 10,
     color: '#9B9B9B',
-    fontFamily : FONTFAMILY.Poppins_Medium
+    fontFamily: FONTFAMILY.Poppins_Medium,
   },
   textInput: {
     fontSize: 17,
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
     color: 'black',
     borderRadius: 10,
     fontWeight: '200',
-    fontFamily : FONTFAMILY.Poppins_Regular
+    fontFamily: FONTFAMILY.Poppins_Regular,
   },
   emailView: {
     width: '95%',
@@ -132,12 +129,11 @@ const styles = StyleSheet.create({
     top: 20,
   },
   emailText: {
-    fontSize: 14,
+    fontSize: 11,
     left: 20,
     top: 10,
     color: '#9B9B9B',
-    fontFamily : FONTFAMILY.Poppins_Medium
-
+    fontFamily: FONTFAMILY.Poppins_Medium,
   },
   passwordView: {
     width: '95%',
@@ -150,12 +146,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   passwordText: {
-    fontSize: 14,
+    fontSize: 11,
     left: 20,
     top: 10,
     color: '#9B9B9B',
-    fontFamily : FONTFAMILY.Poppins_Medium
-
+    fontFamily: FONTFAMILY.Poppins_Medium,
   },
   textInputView: {
     // backgroundColor: 'blue',
@@ -199,7 +194,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     shadowColor: 'black',
     elevation: 3,
-  
   },
   alreadyView: {
     // backgroundColor: 'green',
@@ -218,8 +212,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontWeight: '300',
     marginTop: 40,
-    fontFamily : FONTFAMILY.Poppins_Regular
-
+    fontFamily: FONTFAMILY.Poppins_Regular,
   },
   signUpButtonView: {
     // backgroundColor: '#DB3022',
@@ -246,8 +239,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#ffffff',
     fontWeight: '300',
-    fontFamily : FONTFAMILY.Poppins_Regular
-
+    fontFamily: FONTFAMILY.Poppins_Regular,
   },
   bottomView: {
     flex: 1,
@@ -265,7 +257,6 @@ const styles = StyleSheet.create({
   btmText: {
     fontSize: 16,
     fontWeight: '300',
-    fontFamily : FONTFAMILY.Poppins_Regular
-
+    fontFamily: FONTFAMILY.Poppins_Regular,
   },
 });

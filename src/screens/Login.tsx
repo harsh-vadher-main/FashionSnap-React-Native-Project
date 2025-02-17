@@ -14,10 +14,12 @@ import {icons} from '../utils/icons';
 import {createStaticNavigation, useNavigation} from '@react-navigation/native';
 import ForgetPassword from './ForgetPassword';
 import RedButton from '../common/RedButton';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootstackParams } from '../navigation/AppNavigator';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootstackParams} from '../navigation/AppNavigator';
+import {FONTFAMILY} from '../themes/Theme';
 const Login = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootstackParams>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootstackParams>>();
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#f5f5f5'}}>
       <View style={{flex: 1, marginHorizontal: 12}}>
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
   emailText: {
     fontSize: 12,
     top: 5,
+    fontFamily: FONTFAMILY.Poppins_Regular,
     paddingHorizontal: 5,
     color: '#9B9B9B',
     fontWeight: '300',

@@ -7,6 +7,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootstackParams} from '../navigation/AppNavigator';
+import {FONTFAMILY} from '../themes/Theme';
 
 const ForgetPassword = () => {
   const navigation =
@@ -25,8 +26,6 @@ const ForgetPassword = () => {
       setIsValid(false);
     }
   };
-  const HandleSubmit = (text: string) => {};
-
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#f5f5f5'}}>
       <View style={styles.mainContainer}>
@@ -58,7 +57,7 @@ const ForgetPassword = () => {
           />
         </View>
         <View style={styles.btn}>
-          <RedButton name="SEND" onPress={HandleSubmit} />
+          <RedButton name="SEND" />
         </View>
       </View>
     </SafeAreaView>
@@ -86,8 +85,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   emailText: {
-    fontSize: 14,
+    fontSize: 11,
     left: 20,
+    fontFamily: FONTFAMILY.Poppins_Regular,
     top: 8,
     color: '#9B9B9B',
   },

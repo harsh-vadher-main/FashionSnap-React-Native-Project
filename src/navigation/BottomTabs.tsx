@@ -1,17 +1,15 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import Bag from '../screens/Bag';
 import Favorites from '../screens/Favorites';
 import Profile from '../screens/Profile';
-import Shop from '../screens/Shop';
 import {SvgXml} from 'react-native-svg';
 import {icons} from '../utils/icons';
-// import {Harsh} from './AppNavigator';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Harsh, RootstackParams} from './AppNavigator';
+import {RootstackParams, ShopScreen} from './AppNavigator';
+import DrawerTab from '../screens/DrawerTab';
 
 interface BottomTabsProps {
   navigation: NativeStackNavigationProp<RootstackParams, 'BottomTabs'>;
@@ -20,13 +18,11 @@ interface BottomTabsProps {
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = ({navigation}: BottomTabsProps) => {
-
-
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={DrawerTab}
         options={{
           headerShown: false,
           tabBarActiveTintColor: 'red',
@@ -41,7 +37,7 @@ const BottomTabs = ({navigation}: BottomTabsProps) => {
       />
       <Tab.Screen
         name="Shop"
-        component={Harsh}
+        component={ShopScreen}
         options={{
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -113,4 +109,3 @@ const BottomTabs = ({navigation}: BottomTabsProps) => {
 
 export default BottomTabs;
 
-const styles = StyleSheet.create({});

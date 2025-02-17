@@ -16,9 +16,13 @@ import {icons} from '../utils/icons';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootstackParams} from '../navigation/AppNavigator';
 import {FONTFAMILY} from '../themes/Theme';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import Profile from './Profile';
+import {DrawerActions} from '@react-navigation/native';
+import DrawerTab from './DrawerTab';
 
 interface HomeScreenProps {
-  navigation: NativeStackNavigationProp<RootstackParams, 'Home'>;
+  navigation: NativeStackNavigationProp<RootstackParams, 'HomeScreen'>;
 }
 
 const renderItem = (rating: any) => {
@@ -32,7 +36,7 @@ const renderItem = (rating: any) => {
   }
   return stars;
 };
-const HomeScreen = () => {
+const HomeScreen = ({navigation}: HomeScreenProps) => {
   const [favourites, setFavourites] = useState<number[]>([]); // Array to store IDs of favourite items
 
   const toggleFavourite = (id: number): void => {
