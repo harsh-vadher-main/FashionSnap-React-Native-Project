@@ -4,23 +4,52 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableHighlight,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {SvgXml} from 'react-native-svg';
 import {icons} from '../utils/icons';
 import {createStaticNavigation, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootstackParams} from '../navigation/AppNavigator';
-import BottomTabs from '../navigation/BottomTabs';
-import {FONTFAMILY} from '../themes/Theme';
+import {FONTFAMILY, FONTSIZE} from '../themes/Theme';
 
-export default function Signup() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootstackParams>>();
+interface SignUpProps {
+  navigation: NativeStackNavigationProp<RootstackParams, 'SignUp'>;
+}
+
+export default function Signup({navigation}: SignUpProps) {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<any>('');
+  const [password, setPassword] = useState<any>('');
+
+  const [nameError, setNameError] = useState<string>('');
+  const [emailError, setEmailError] = useState<any>('');
+  const [passwordError, setPasswordError] = useState<any>('');
+
+  const validateField = (field: string, setError: (msg: string) => void) => {
+    if (field == 'email') {
+      if (!field.trim()) {
+        setError('Email is Required!');
+      } else {
+        setError('');
+      }
+    } else if (field == 'name') {
+      if (!field.trim()) {
+        setError('Name is Required');
+      } else {
+        setError('');
+      }
+    } else {
+      if (!field.trim()) {
+        setError('Password is Required');
+      } else {
+        setError('');
+      }
+    }
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
@@ -30,17 +59,40 @@ export default function Signup() {
           </View>
         </View>
         <View style={styles.secondView}>
+          {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
           <View style={styles.nameView}>
             <Text style={styles.nameText}>Name</Text>
-            <TextInput style={styles.textInput} />
+            <TextInput
+              style={styles.textInput}
+              value={name}
+              onChangeText={setName}
+              onBlur={() => validateField(name, setNameError)}
+            />
           </View>
+          {emailError ? (
+            <Text style={styles.errorTextEmail}>{emailError}</Text>
+          ) : null}
           <View style={styles.emailView}>
             <Text style={styles.emailText}>E-mail</Text>
-            <TextInput style={styles.textInput} />
+            <TextInput
+              style={styles.textInput}
+              value={email}
+              onChangeText={setEmail}
+              onBlur={() => validateField(email, setEmailError)}
+            />
           </View>
+          {passwordError ? (
+            <Text style={styles.errorTextPassword}>{passwordError}</Text>
+          ) : null}
           <View style={styles.passwordView}>
             <Text style={styles.passwordText}>Password</Text>
-            <TextInput style={styles.textInput} secureTextEntry />
+            <TextInput
+              style={styles.textInput}
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+              onBlur={() => validateField(password, setPasswordError)}
+            />
           </View>
         </View>
         <View style={styles.alreadyView}>
@@ -58,36 +110,32 @@ export default function Signup() {
             <Text style={styles.signupBtnText}>SIGN UP</Text>
           </Pressable>
         </View>
+        <View style={styles.bottomView}>
+          <Text style={styles.btmText}>Or sign up with social account </Text>
+        </View>
+        <View style={styles.signupIcons}>
+          <SvgXml xml={icons().google} />
+          <SvgXml xml={icons().facebook} />
+        </View>
       </ScrollView>
-      <View style={styles.bottomView}>
-        <Text style={styles.btmText}>Or sign up with social account </Text>
-      </View>
-      <View style={styles.signupIcons}>
-        <SvgXml xml={icons().google} />
-        <SvgXml xml={icons().facebook} />
-      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   firstView: {
-    // backgroundColor: 'yellow',
     top: 20,
     marginHorizontal: 10,
   },
   signupView: {
     marginTop: 50,
-    // backgroundColor: 'green',
   },
   signUptext: {
     fontSize: 34,
     fontFamily: FONTFAMILY.Poppins_Bold,
   },
   secondView: {
-    // backgroundColor: 'red',
     top: 80,
-    // height: '50%',
     marginHorizontal: 10,
     borderRadius: 10,
   },
@@ -97,10 +145,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     height: 74,
     borderRadius: 10,
-    // shadowColor: 'black',
-    elevation: 4,
-    // borderWidth : 1,
-    // borderColor: '#ffffff',
+    elevation: 10,
+    shadowOffset: {height: 2, width: 2},
+    shadowOpacity: 0.1,
   },
   nameText: {
     fontSize: 11,
@@ -108,6 +155,12 @@ const styles = StyleSheet.create({
     top: 10,
     color: '#9B9B9B',
     fontFamily: FONTFAMILY.Poppins_Medium,
+  },
+  errorText: {
+    fontFamily: FONTFAMILY.Poppins_Regular,
+    fontSize: FONTSIZE.size_14,
+    color: 'red',
+    marginVertical: 15,
   },
   textInput: {
     fontSize: 17,
@@ -123,10 +176,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     height: 74,
     borderRadius: 10,
-    shadowColor: 'black',
+    elevation: 10,
+    shadowOffset: {height: 2, width: 2},
+    shadowOpacity: 0.1,
     backgroundColor: '#ffffff',
-    elevation: 3,
-    top: 20,
+    marginTop: 15,
   },
   emailText: {
     fontSize: 11,
@@ -135,14 +189,21 @@ const styles = StyleSheet.create({
     color: '#9B9B9B',
     fontFamily: FONTFAMILY.Poppins_Medium,
   },
+  errorTextEmail: {
+    color: 'red',
+    fontFamily: FONTFAMILY.Poppins_Regular,
+    fontSize: FONTSIZE.size_14,
+    top: 10,
+  },
   passwordView: {
     width: '95%',
     height: 74,
     marginHorizontal: 5,
     borderRadius: 10,
-    shadowColor: 'black',
-    elevation: 3,
-    top: 40,
+    elevation: 10,
+    shadowOffset: {height: 2, width: 2},
+    shadowOpacity: 0.1,
+    marginTop: 15,
     backgroundColor: '#ffffff',
   },
   passwordText: {
@@ -152,8 +213,14 @@ const styles = StyleSheet.create({
     color: '#9B9B9B',
     fontFamily: FONTFAMILY.Poppins_Medium,
   },
+  errorTextPassword: {
+    color: 'red',
+    fontFamily: FONTFAMILY.Poppins_Regular,
+    fontSize: FONTSIZE.size_14,
+
+    top: 10, // marginTop: 15,
+  },
   textInputView: {
-    // backgroundColor: 'blue',
     top: 180,
     width: '95%',
     marginHorizontal: 10,
@@ -196,10 +263,9 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   alreadyView: {
-    // backgroundColor: 'green',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    top: 90,
+    top: 50,
   },
   svgArrow: {
     top: 8,
@@ -214,19 +280,15 @@ const styles = StyleSheet.create({
     marginTop: 40,
     fontFamily: FONTFAMILY.Poppins_Regular,
   },
+
   signUpButtonView: {
-    // backgroundColor: '#DB3022',
-    // top: 120,
-    // marginHorizontal: 20,/
-    // borderRadius: 50,
-    // alignItems : 'center'
+    marginTop: 100,
   },
   SignUpBtn: {
     borderRadius: 20,
     backgroundColor: '#DB3022',
     height: 50,
-    marginTop: 150,
-    // width: '100%',
+    // marginTop: 70,
     marginHorizontal: 20,
     alignItems: 'center',
     paddingTop: 12,
@@ -242,21 +304,18 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Poppins_Regular,
   },
   bottomView: {
-    flex: 1,
-    // backgroundColor: 'green',
-    bottom: 0,
+    top: 120,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  signupIcons: {
-    // backgroundColor: 'blue',
-    flexDirection: 'row',
-    bottom: 10,
-    justifyContent: 'center',
   },
   btmText: {
     fontSize: 16,
     fontWeight: '300',
     fontFamily: FONTFAMILY.Poppins_Regular,
+  },
+  signupIcons: {
+    top: 120,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });

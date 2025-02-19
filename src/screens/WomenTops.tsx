@@ -135,14 +135,14 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
     useState<string>('Price: low to high');
   return (
     <SafeAreaView style={{flex: 1}}>
+      <HeaderTop
+        text={isGridView ? "Women's Tops" : ''}
+        btn={icons().search}
+        onPress1={() => navigation.goBack()}
+        
+      />
       <View style={styles.mainView}>
         <View>
-          <HeaderTop
-            text={isGridView ? "Women's Tops" : ''}
-            btn={icons().search}
-            onPress1={() => navigation.goBack()}
-            // onPress2={() => navigation.goBack()}
-          />
           <View style={{marginHorizontal: 20, marginTop: 20}}>
             {!isGridView && (
               <Text
@@ -247,7 +247,6 @@ const WomenTops = ({navigation}: WomenTopsProps) => {
         </View>
         <View style={isGridView ? styles.listTop : styles.flatTop}>
           <FlatList
-            // scrollEnabled={isGridView ? false : true}
             contentContainerStyle={{width: '90%', marginVertical: 5}}
             data={data}
             numColumns={isGridView ? 2 : 1}
@@ -317,7 +316,6 @@ export default WomenTops;
 const styles = StyleSheet.create({
   flatListView: {
     paddingHorizontal: 10,
-    // alignItems : 'flex-start'
   },
   categorybtn: {
     backgroundColor: '#222222',

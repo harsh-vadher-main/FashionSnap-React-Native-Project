@@ -15,10 +15,8 @@ import {SvgXml} from 'react-native-svg';
 import {icons} from '../utils/icons';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {COLORS, FONTFAMILY, FONTSIZE} from '../themes/Theme';
-import RedButton from '../common/RedButton';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootstackParams} from '../navigation/AppNavigator';
-// import {ScrollView} from 'react-native-gesture-handler';
 
 interface ClothScreenProps {
   navigation: NativeStackNavigationProp<RootstackParams, 'Cloths'>;
