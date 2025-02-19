@@ -147,7 +147,8 @@ const subData = [
     originalPrice: '15$ ',
     brand: 'Dorothy Perkins',
     discount: 'NEW ',
-    totalRating : 14,
+    totalRating: 14,
+    rating: 4,
     image: require('../assets/image/nextflatlist2.png'),
   },
   {
@@ -157,7 +158,8 @@ const subData = [
     originalPrice: '22$ ',
     brand: 'Sitlly',
     discount: 'NEW ',
-    totalRating : 11,
+    totalRating: 11,
+    rating: 2,
     image: require('../assets/image/nextflatlist.png'),
   },
   {
@@ -167,7 +169,8 @@ const subData = [
     originalPrice: '22$ ',
     brand: 'Dorothy Perkins',
     discount: 'NEW ',
-    totalRating : 17,
+    totalRating: 17,
+    rating: 5,
     image: require('../assets/image/nextflatlist2.png'),
   },
 ];
@@ -358,14 +361,7 @@ const Cloths = ({navigation}: ClothScreenProps) => {
             marginTop: 5,
           }}></View>
         <TouchableOpacity>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginHorizontal: 18,
-              marginTop: 10,
-              marginVertical: 10,
-            }}>
+          <View style={styles.shippingView}>
             <Text style={styles.shoppingInfo}> Shipping Info </Text>
             <SvgXml xml={icons().next} style={styles.nextIcon} />
           </View>
@@ -384,6 +380,29 @@ const Cloths = ({navigation}: ClothScreenProps) => {
             <SvgXml xml={icons().next} style={styles.nextIcon} />
           </View>
         </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginHorizontal: 10,
+            marginVertical: -5,
+          }}>
+          <Text
+            style={{
+              fontSize: FONTSIZE.size_16,
+              fontFamily: FONTFAMILY.Poppins_Medium,
+            }}>
+            You can like this also
+          </Text>
+          <Text
+            style={{
+              color : "#9B9B9B",
+              fontSize: FONTSIZE.size_12,
+              fontFamily: FONTFAMILY.Poppins_Regular,
+            }}>
+            12 items{' '}
+          </Text>
+        </View>
         <FlatList
           data={subData}
           horizontal
@@ -397,7 +416,7 @@ const Cloths = ({navigation}: ClothScreenProps) => {
               </View>
               <Image source={item.image} style={styles.flatlistImage} />
               <View style={{flexDirection: 'row'}}>
-              <Text>{renderStars(selectedProduct.rating)}</Text>
+                <Text>{renderStars(item.rating)}</Text>
                 <Text
                   style={{
                     color: '#9b9b9b',
@@ -544,8 +563,16 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Poppins_Regular,
   },
   description: {
+    marginTop: 10,
     fontSize: FONTSIZE.size_14,
     fontFamily: FONTFAMILY.Poppins_Regular,
+  },
+  shippingView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 18,
+    marginTop: 10,
+    marginVertical: 10,
   },
   AddButtonView: {
     backgroundColor: '#fff',
@@ -614,8 +641,8 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     fontFamily: FONTFAMILY.Poppins_Regular,
   },
-  discountPrice:{
+  discountPrice: {
     color: '#DB3022',
     fontFamily: FONTFAMILY.Poppins_Regular,
-  }
+  },
 });
