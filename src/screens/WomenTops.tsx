@@ -20,6 +20,7 @@ import {SvgXml} from 'react-native-svg';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import RBSheet from 'react-native-raw-bottom-sheet';
 
+type RBSheet = any;
 interface WomenTopsProps {
   navigation: NativeStackNavigationProp<RootstackParams, 'WomenTops'>;
 }

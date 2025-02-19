@@ -260,19 +260,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
             keyExtractor={item => String(item.id)}
             renderItem={({item}) => (
               <View style={styles.mainlistview}>
-                <View
-                  style={{
-                    backgroundColor: 'black',
-                    width: 40,
-                    height: 20,
-                    justifyContent: 'center',
-                    paddingHorizontal: 8,
-                    alignItems: 'center',
-                    borderRadius: 30,
-                    top: 30,
-                    left: 10,
-                    zIndex: 1,
-                  }}>
+                <View style={styles.insideView}>
                   <Text style={{zIndex: 1, fontSize: 11, color: '#fff'}}>
                     {item.discount}
                   </Text>
@@ -364,11 +352,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
   },
+  insideView: {
+    backgroundColor: 'black',
+    width: 40,
+    height: 20,
+    justifyContent: 'center',
+    paddingHorizontal: 8,
+    alignItems: 'center',
+    borderRadius: 30,
+    top: 30,
+    left: 10,
+    zIndex: 1,
+  },
 
   flatlistImage: {
-    height: 180,
-    width: 120,
-    borderRadius: 10,
+      height: 180,
+      width: 120,
+      borderRadius: 10,
   },
   discountPrice: {
     color: '#DB3022',

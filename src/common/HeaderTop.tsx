@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
   },
   searchBtn: {
     marginHorizontal: 15,
-    marginVertical: 10,
+    marginVertical: 15,
   },
 });
