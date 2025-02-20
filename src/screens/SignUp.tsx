@@ -24,29 +24,45 @@ export default function Signup({navigation}: SignUpProps) {
   const [email, setEmail] = useState<any>('');
   const [password, setPassword] = useState<any>('');
 
-  const [nameError, setNameError] = useState<string>('');
-  const [emailError, setEmailError] = useState<any>('');
-  const [passwordError, setPasswordError] = useState<any>('');
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  
 
-  const validateField = (field: string, setError: (msg: string) => void) => {
-    if (field == 'email') {
-      if (!field.trim()) {
-        setError('Email is Required!');
-      } else {
-        setError('');
-      }
-    } else if (field == 'name') {
-      if (!field.trim()) {
-        setError('Name is Required');
-      } else {
-        setError('');
-      }
-    } else {
-      if (!field.trim()) {
-        setError('Password is Required');
-      } else {
-        setError('');
-      }
+  const validateFields = () => {
+    let isValid = true;
+    let newErrors = {name: '', email: '', password: ''};
+
+    if (!name.trim()) {
+      newErrors.name = 'Name is required.';
+      isValid = false;
+    }
+
+    if (!email.trim()) {
+      newErrors.email = 'Email is required.';
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Enter a valid email address.';
+      isValid = false;
+    }
+
+    if (!password.trim()) {
+      newErrors.password = 'Password is required.';
+      isValid = false;
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters.';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSignup = () => {
+    if (validateFields()) {
+      navigation.navigate('BottomTabs');
     }
   };
 
@@ -59,18 +75,19 @@ export default function Signup({navigation}: SignUpProps) {
           </View>
         </View>
         <View style={styles.secondView}>
-          {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
+          {errors.name ? (
+            <Text style={styles.errorText}>{errors.name}</Text>
+          ) : null}
           <View style={styles.nameView}>
             <Text style={styles.nameText}>Name</Text>
             <TextInput
               style={styles.textInput}
               value={name}
               onChangeText={setName}
-              onBlur={() => validateField(name, setNameError)}
             />
           </View>
-          {emailError ? (
-            <Text style={styles.errorTextEmail}>{emailError}</Text>
+          {errors.email ? (
+            <Text style={styles.errorTextEmail}>{errors.email}</Text>
           ) : null}
           <View style={styles.emailView}>
             <Text style={styles.emailText}>E-mail</Text>
@@ -78,11 +95,11 @@ export default function Signup({navigation}: SignUpProps) {
               style={styles.textInput}
               value={email}
               onChangeText={setEmail}
-              onBlur={() => validateField(email, setEmailError)}
+              
             />
           </View>
-          {passwordError ? (
-            <Text style={styles.errorTextPassword}>{passwordError}</Text>
+          {errors.password ? (
+            <Text style={styles.errorTextPassword}>{errors.password}</Text>
           ) : null}
           <View style={styles.passwordView}>
             <Text style={styles.passwordText}>Password</Text>
@@ -91,7 +108,7 @@ export default function Signup({navigation}: SignUpProps) {
               secureTextEntry
               value={password}
               onChangeText={setPassword}
-              onBlur={() => validateField(password, setPasswordError)}
+              
             />
           </View>
         </View>
@@ -106,7 +123,7 @@ export default function Signup({navigation}: SignUpProps) {
         <View style={styles.signUpButtonView}>
           <Pressable
             style={styles.SignUpBtn}
-            onPress={() => navigation.navigate('BottomTabs')}>
+            onPress={handleSignup}>
             <Text style={styles.signupBtnText}>SIGN UP</Text>
           </Pressable>
         </View>
